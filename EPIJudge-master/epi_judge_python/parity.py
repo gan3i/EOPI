@@ -24,20 +24,31 @@ from precomputed_parity import PRECOMPUTED_PARITY
 
 
 
-#Compute the parity by using the precomputed parity, bit masking and bit fiddling
-def parity(x: int) -> int:
-    # TODO - you fill in here.
-    # precomputed_parity = [0 for _ in range((2**16))]
-    # precompute(precomputed_parity)
+# #Compute the parity by using the precomputed parity, bit masking and bit fiddling O(word size/ mask_size)
+# def parity(x: int) -> int:
+#     # TODO - you fill in here.
+#     # precomputed_parity = [0 for _ in range((2**16))]
+#     # precompute(precomputed_parity)
 
-    mask_size = 16
-    bit_mask = 2 ** 16 - 1 # or 0xFFFF
+#     mask_size = 16
+#     bit_mask = 2 ** 16 - 1 # or 0xFFFF
 
-    return PRECOMPUTED_PARITY[x >> (3 * mask_size)] ^ \
-    PRECOMPUTED_PARITY[(x >> (2 * mask_size)) & bit_mask] ^ \
-    PRECOMPUTED_PARITY[(x >> (mask_size)) & bit_mask] ^ \
-    PRECOMPUTED_PARITY[x & bit_mask]
+#     return PRECOMPUTED_PARITY[x >> (3 * mask_size)] ^ \
+#     PRECOMPUTED_PARITY[(x >> (2 * mask_size)) & bit_mask] ^ \
+#     PRECOMPUTED_PARITY[(x >> (mask_size)) & bit_mask] ^ \
+#     PRECOMPUTED_PARITY[x & bit_mask]
 
+#using Comutative nature of XOR O(logn)
+def parity(x : int) ->int:
+    x ^= x >> 32
+    x ^= x >> 16
+    return PRECOMPUTED_PARITY[x & 2 ** 16 -1]
+    x ^= x >> 8
+    x ^= x >> 4
+    x ^= x >> 2
+    x ^= x >> 1
+
+    return x & 0x1
 # print(parity(14))
 
 
