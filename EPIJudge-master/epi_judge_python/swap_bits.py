@@ -9,9 +9,9 @@ def swap_bits(x, i, j):
         return x ^ bit_mask
     return x
 
+#  print(swap_bits(1, 64, 1))
 
-
-if __name__ == '__main__':
-    exit(
-        generic_test.generic_test_main('swap_bits.py', 'swap_bits.tsv',
-                                       swap_bits))
+# if __name__ == '__main__':
+#     exit(
+#         generic_test.generic_test_main('swap_bits.py', 'swap_bits.tsv',
+#                                        swap_bits))
