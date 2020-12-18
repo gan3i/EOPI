@@ -5,7 +5,7 @@ def is_palindromic(s: str) -> bool:
     # TODO - you fill in here.
 
     for i in range(len(s)//2):
-        if s[i].lower() != s[len(s)-1-i].lower():
+        if s[i] != s[~i]:
             return False
 
     return True
