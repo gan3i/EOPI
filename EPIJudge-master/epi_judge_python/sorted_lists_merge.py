@@ -8,24 +8,16 @@ def merge_two_sorted_lists(L1: Optional[ListNode],
                            L2: Optional[ListNode]) -> Optional[ListNode]:
     # TODO - you fill in here.
        
-    dummy = ListNode()
-    curr = dummy
+    dummy = curr = ListNode()
 
     while L1 and L2:
         if L1.data < L2.data:
-            curr.next = L1
-            L1 = L1.next
-            curr = curr.next
+            curr.next,L1 = L1,L1.next
         else:
-            curr.next = L2
-            L2 = L2.next
-            curr = curr.next
+            curr.next,L2 = L2,L2.next
+        curr = curr.next
 
-    if L1:
-        curr.next = L1
-    if L2:
-        curr.next = L2
-
+    curr.next = L1 or L2
     return dummy.next
 
 
