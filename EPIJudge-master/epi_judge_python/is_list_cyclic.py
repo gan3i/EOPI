@@ -34,8 +34,19 @@ def has_cycle(head: ListNode) -> Optional[ListNode]:
             while it is not cyc:
                 it, cyc = it.next, cyc.next
             return it
-    return None
 
+    # this will not work
+    # slow = fast = head
+    # while  fast and fast.next and fast.next.next:
+    #     slow , fast = slow.next, fast.next.next
+
+    #     if slow is fast:
+    #         slow = head
+    #         while slow is not fast:
+    #             slow,fast = slow.next, fast.next
+    #     return slow
+
+    return None
 
 @enable_executor_hook
 def has_cycle_wrapper(executor, head, cycle_idx):
