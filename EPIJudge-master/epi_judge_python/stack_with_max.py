@@ -5,26 +5,38 @@ import collections
 from typing import List
 
 class Stack:
-    ElementWithCachedMax = collections.namedtuple('ElementWithCachedMax', ('element','max'))
+    my_stack = []
+    MaxWithIndex = collections.namedtuple('MaxWithIndex', ('index','max'))
 
     def __init__(self) -> None:
-        self._element_with_cached_max : List[Stack.ElementWithCachedMax] = []
+        self._max_with_index : List[Stack.MaxWithIndex] = []
 
     def empty(self) -> bool:
         # TODO - you fill in here.
-        return len(self._element_with_cached_max) == 0
+        return len(self.my_stack) == 0
 
     def max(self) -> int:
         # TODO - you fill in here.
-        return self._element_with_cached_max[-1].max
+        return self._max_with_index[-1].max
 
     def pop(self) -> int:
         # TODO - you fill in here.
-        return self._element_with_cached_max.pop().element
+        result = self.my_stack.pop()
+        if len(self.my_stack) == self._max_with_index[-1].index :
+            self._max_with_index.pop()
+        return result
+
 
     def push(self, x: int) -> None:
         # TODO - you fill in here.
-        self._element_with_cached_max.append(self.ElementWithCachedMax(x,x if self.empty() else max(x, self.max())))
+        self.my_stack.append(x)
+        n = len(self.my_stack)
+        if n==1:
+            self._max_with_index.append(self.MaxWithIndex(n-1,x))
+        elif x > self.max():
+            self._max_with_index.append(self.MaxWithIndex(n-1,x))
+            
+        # self._max_with_index.append(self.MaxWithIndex(x,x if self.empty() else max(x, self.max())))
 
 
 def stack_tester(ops):
