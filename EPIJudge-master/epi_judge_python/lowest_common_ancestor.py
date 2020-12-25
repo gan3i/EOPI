@@ -1,5 +1,6 @@
 import functools
 from typing import Optional
+import collections
 
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
@@ -11,7 +12,25 @@ from test_framework.test_utils import enable_executor_hook
 def lca(tree: BinaryTreeNode, node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
     # TODO - you fill in here.
-    return None
+    Status = collections.namedtuple('Status', ('nums_found', 'ancestor'))
+
+    def lca_helper(tree,node0, node1):
+        if tree is None:
+            return Status(0,None)
+
+        left_result = lca_helper(tree.left, node0, node1)
+        if left_result.nums_found == 2:
+            return left_result
+
+        right_result = lca_helper(tree.right, node0, node1)
+        if right_result.nums_found == 2:
+            return right_result
+
+        num_found = (left_result.nums_found + right_result.nums_found + (node1,node0).count(tree))
+
+        return Status(num_found,tree if num_found == 2 else None)
+        
+    return lca_helper(tree,node0, node1).ancestor
 
 
 @enable_executor_hook
