@@ -3,7 +3,7 @@ import functools
 
 def number_of_ways(n: int, m: int) -> int:
     # TODO - you fill in here.
-    @functools.lru_cache(None)
+    @functools.cache
     def compute_number_of_ways_to_xy(x, y):
         if x == y == 0:
             return 1
